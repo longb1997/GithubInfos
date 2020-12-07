@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components": [
+        "src/components"
+      ],
+      "@feature/*": [
+        "src/features/*"
+      ],
+      "@config": [
+        "src/config"
+      ],
+      "@navigation/*": [
+        "src/navigations/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
+      "@utility": [
+        "src/utility"
+      ],
+      "@resources/*": [
+        "src/resources/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@loading/*": [
+        "src/loading/*"
+      ]
+    }
+  }
+}
