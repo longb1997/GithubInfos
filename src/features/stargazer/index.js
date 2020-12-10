@@ -2,11 +2,14 @@ import { getStargazerByRepoOfUser } from '@data/api/github';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import { showLoading, stopLoad } from '@loading/actions';
+
 import styles from './styles';
 
-export default function Stargazer() {
+function Stargazer(props) {
   const [stargazer, setStargazer] = useState([]);
-
+  const { showLoading, stopLoad } = props;
   const config = {
     username: 'hngocl',
     repoName: 'BoilerplateReactNative',
@@ -14,9 +17,11 @@ export default function Stargazer() {
     page: 1,
   };
   const getStargazer = async (config) => {
+    showLoading();
     const response = await getStargazerByRepoOfUser(config);
     console.log('🚀 ~ file: index.js ~ line 12 ~ getStargazer ~ response', response);
     setStargazer(response?.data);
+    stopLoad();
   };
 
   useEffect(() => {
@@ -41,3 +46,13 @@ export default function Stargazer() {
     </View>
   );
 }
+const mapState = () => {
+  return {};
+};
+
+const mapDispatch = {
+  stopLoad,
+  showLoading,
+};
+
+export default connect(mapState, mapDispatch)(Stargazer);

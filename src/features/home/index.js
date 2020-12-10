@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { searchRepoByUsername } from '@feature/home/modules/actions';
 function Home(props) {
-  const { repos, searchRepoByUsername } = props;
+  const { repos, searchRepoByUsername, showLoading, stopLoad } = props;
   const { navigate } = useNavigation();
 
   console.log({ repos });
@@ -19,14 +19,15 @@ function Home(props) {
   // const [repositories, setRepositories] = useState([]);
   const config = { username: 'longb1997' };
 
-  // const getReposByUsername = async (config) => {
-  //   const response = await getRepoByUsername(config);
-  //   console.log('🚀 ~ file: index.js ~ line 20 ~ getRepoByUsername ~ response', response);
-  //   setRepositories(response?.data);
-  // };
+  const getReposByUsername = async (config) => {
+    showLoading();
+    const response = await searchRepoByUsername(config);
+    console.log('🚀 ~ file: index.js ~ line 20 ~ getRepoByUsername ~ response', response);
+    stopLoad();
+  };
 
   useEffect(() => {
-    searchRepoByUsername(config);
+    getReposByUsername(config);
   }, []);
 
   const Item = ({ name, stargazers_count }) => (

@@ -5,11 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { connect } from 'react-redux';
 
-const AppContainer = (props) => {
+const AppContainer = () => {
   return (
     <NavigationContainer>
       <MainStack />
-      {/* <ModalLoading /> */}
+      <ModalLoading />
     </NavigationContainer>
   );
 };
