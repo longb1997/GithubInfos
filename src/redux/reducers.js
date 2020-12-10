@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import HomeReducer from '@feature/home/modules/reducers';
 import loadingReducer from '../loading/reducers';
 

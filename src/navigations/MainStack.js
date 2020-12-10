@@ -1,5 +1,5 @@
 import HomeScreen from '@feature/home';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 const Stack = createStackNavigator();

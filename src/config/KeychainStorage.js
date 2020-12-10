@@ -57,10 +57,7 @@ const KeychainStorage = {
   },
   async removeItem(key, cb) {
     try {
-      await Promise.all([
-        AsyncStorage.removeItem(key),
-        resetGenericPassword({ service: key }),
-      ]);
+      await Promise.all([AsyncStorage.removeItem(key), resetGenericPassword({ service: key })]);
       if (cb) {
         cb(undefined);
       }

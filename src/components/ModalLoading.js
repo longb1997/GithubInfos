@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import Spinner from 'react-native-spinkit';
-import {Colors} from '@config';
-import {showLoading, stopLoad} from '../loading/actions';
-import {connect} from 'react-redux';
+import { Colors } from '@config';
+import { showLoading, stopLoad } from '../loading/actions';
+import { connect } from 'react-redux';
 
 function ModalLoading(props) {
   return (
@@ -16,7 +16,7 @@ function ModalLoading(props) {
         style={styles.container}>
         <View style={styles.content}>
           <Spinner
-            style={{marginBottom: 20, marginRight: 6}}
+            style={{ marginBottom: 20, marginRight: 6 }}
             isVisible={true}
             size={42}
             type={'FadingCircleAlt'}

@@ -1,7 +1,7 @@
-import moment from "moment";
-import _ from "lodash";
+import moment from 'moment';
+import _ from 'lodash';
 
-import {getTimezone} from "@utility";
+import { getTimezone } from '@utility';
 
 export const asArray = (journeys) => {
   try {
@@ -11,7 +11,7 @@ export const asArray = (journeys) => {
     for (const item of journeys) {
       const datetime = moment(item.beginTime).utcOffset(tz);
       const date = datetime.format('YYYY-MM-DD');
-      const time = datetime.format('HH:mm A')
+      const time = datetime.format('HH:mm A');
 
       item.date = date;
       item.time = time;
@@ -28,4 +28,4 @@ export const asArray = (journeys) => {
   } catch (e) {
     return null;
   }
-}
+};

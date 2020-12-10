@@ -1,9 +1,9 @@
-import {ModalLoading} from '@components';
-import {showLoading, stopLoad} from '@loading/actions';
+import { ModalLoading } from '@components';
+import { showLoading, stopLoad } from '@loading/actions';
 import MainStack from '@navigation/MainStack';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const AppContainer = (props) => {
   return (

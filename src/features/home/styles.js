@@ -1,5 +1,5 @@
-import {StyleSheet, Platform} from 'react-native';
-import {Colors, Typography} from '@config';
+import { StyleSheet, Platform } from 'react-native';
+import { Colors, Typography } from '@config';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: Platform.OS === 'ios' ? 4 : 6,
   },
-  containerFollow: {flex: 1, backgroundColor: Colors.white},
+  containerFollow: { flex: 1, backgroundColor: Colors.white },
   safe: {
     flex: 1,
     borderBottomRightRadius: 30,

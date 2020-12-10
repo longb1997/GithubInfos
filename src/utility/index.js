@@ -1,18 +1,16 @@
-import {PROVIDER} from '@constants/index';
-import {baseURL} from '@data/api';
+import { PROVIDER } from '@constants/index';
+import { baseURL } from '@data/api';
 import images from '@resources/icons';
 import haversine from 'haversine';
 import moment from 'moment';
-import {Dimensions, Platform, StatusBar} from 'react-native';
+import { Dimensions, Platform, StatusBar } from 'react-native';
 
-export const {height: D_HEIGHT, width: D_WIDTH} = Dimensions.get('window');
+export const { height: D_HEIGHT, width: D_WIDTH } = Dimensions.get('window');
 
 export const avatarNull = images.avatar;
 
 export const regexPassword = (password) => {
-  var strongRegex = new RegExp(
-    '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,32})',
-  );
+  var strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,32})');
   return strongRegex.test(password);
 };
 
@@ -38,10 +36,7 @@ export const isIphoneX = () => {
     Platform.OS === 'ios' &&
     !Platform.isPad &&
     !Platform.isTVOS &&
-    (dimen.height === 812 ||
-      dimen.width === 812 ||
-      dimen.height === 896 ||
-      dimen.width === 896)
+    (dimen.height === 812 || dimen.width === 812 || dimen.height === 896 || dimen.width === 896)
   );
 };
 
@@ -69,7 +64,7 @@ export const regexYear = (name) => {
 };
 
 export const haversineMeter = (start, end) => {
-  return haversine(start, end, {unit: 'meter'});
+  return haversine(start, end, { unit: 'meter' });
 };
 
 export const isExist = (v) => {
@@ -134,7 +129,7 @@ export const isIOS = () => {
   return Platform.OS === 'ios';
 };
 
-export const avatarUrl = ({userId, userAvatar, token}) => {
+export const avatarUrl = ({ userId, userAvatar, token }) => {
   if (userAvatar) {
     return `${baseURL}user/image/${userId}/${userAvatar}?token=${token}`;
   }

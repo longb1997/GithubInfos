@@ -1,5 +1,5 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {setRepo, searchUser} from './actions';
+import { createReducer } from '@reduxjs/toolkit';
+import { setRepo, searchUser } from './actions';
 
 const HomeReducer = createReducer(
   {

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import {persistReducer, persistStore} from 'redux-persist';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { persistReducer, persistStore } from 'redux-persist';
 import rootReducers from './reducers';
 
 const persistConfig = {
