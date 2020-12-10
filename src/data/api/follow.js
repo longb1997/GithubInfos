@@ -1,4 +1,4 @@
-import { instanceApiService, returnFormData } from './index';
+import { instanceApiService } from './index';
 
 export async function getApiFollower({ size, page }) {
   const path = `follow/follower?size=${size}&page=${page}`;
@@ -38,14 +38,14 @@ export async function getProfileFollowing(id) {
 
 export async function postFollow(body) {
   console.log('postFollow -> body', body);
-  const path = `follow`;
+  const path = 'follow';
 
   const response = await instanceApiService.post(path, body);
   return response;
 }
 
 export async function getLatestStory() {
-  const path = `user/latest`;
+  const path = 'user/latest';
   const response = await instanceApiService.get(path);
   return response;
 }

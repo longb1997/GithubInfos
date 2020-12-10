@@ -7,10 +7,10 @@
  */
 
 import React from 'react';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import AppContainer from '@navigation/AppContainer';
-import {persistor, store} from '@redux/store';
-import {PersistGate} from 'redux-persist/integration/react';
+import { persistor, store } from '@redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 // console.disableYellowBox = true;
 
 const App = () => {

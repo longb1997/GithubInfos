@@ -1,14 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setRepo, searchUser } from './actions';
+import { setRepo, searchUser, setUsername } from './actions';
 
 const HomeReducer = createReducer(
   {
-    repos: null,
-    search: null,
+    username: '',
+    repos: [],
+    search: '',
   },
   {
+    [setUsername]: (state, action) => {
+      state.username = action.payload;
+    },
     [setRepo]: (state, action) => {
-      state.repo = action.payload;
+      state.repos = action.payload;
     },
     [searchUser]: (state, action) => {
       state.search = action.payload;

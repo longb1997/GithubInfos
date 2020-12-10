@@ -100,7 +100,7 @@ export const isInstagramProvider = (providerList) => {
  * @function convert datetime from local to utc
  */
 
-export const datetimeLocalToUtc = (datetime, tz) => {
+export const datetimeLocalToUtc = (datetime) => {
   return moment(datetime).utc().format('YYYY-MM-DD HH:mm:ss');
 };
 

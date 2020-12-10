@@ -1,14 +1,14 @@
+import { API_GITHUB } from '@constants/API';
+
 // for axios
 const axios = require('axios').default;
 
-export const baseURL = 'https://api.github.com/';
+export const baseURL = API_GITHUB;
 
 export const instanceApiService = axios.create({
   baseURL: baseURL,
   timeout: 10000,
 });
-
-//Inject Token cho các API cần.
 
 instanceApiService.interceptors.request.use(function (config) {
   config.headers['Accept'] = 'application/vnd.github.v3+json';
@@ -18,9 +18,9 @@ instanceApiService.interceptors.request.use(function (config) {
 //Print Log Request
 instanceApiService.interceptors.request.use(
   function (config) {
-    console.log(`=================================`);
+    console.log('=================================');
     console.log(`Call API Request: ${config.url}`, config);
-    console.log(`================================= `);
+    console.log('================================= ');
     return config;
   },
   function (error) {
