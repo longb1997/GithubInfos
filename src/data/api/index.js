@@ -1,6 +1,5 @@
 import { API_GITHUB } from '@constants/API';
 
-// for axios
 const axios = require('axios').default;
 
 export const baseURL = API_GITHUB;
@@ -29,29 +28,19 @@ instanceApiService.interceptors.request.use(
 );
 
 //Print Log Response
-// instanceApiService.interceptors.response.use(
-//   function (response) {
-//     // console.log(`=================================`);
-//     // console.log(`Call API Response: ${response.config.url}`, response);
-//     // console.log(`================================= `);
-//     return response;
-//   },
-//   function (error) {
-//     // console.log('error catch', error.response);
-//     if (error.response && error.response) {
-//       // In case token EXPIRED
-//       if (error.response.data.message == 'EXPIRED_TOKEN') {
-//         // TODO:
-//         // setTimeout(() => {
-//         //   Alert.alert(null, 'Please login to continue', [
-//         //     { text: 'OK', onPress: () => store.dispatch(setToken('')) },
-//         //   ]);
-//         // }, 300);
-//         store.dispatch(setToken(null));
-//         return;
-//       }
-//       return error.response;
-//     }
-//     return Promise.reject(error.message);
-//   },
-// );
+instanceApiService.interceptors.response.use(
+  function (response) {
+    console.log('=================================');
+    console.log(`Call API Response: ${response.config.url}`, response);
+    console.log('================================= ');
+    return response;
+  },
+  function (error) {
+    // console.log('error catch', error.response);
+    if (error.response && error.response) {
+      // In case token EXPIRED
+      return error.response;
+    }
+    return Promise.reject(error.message);
+  },
+);
