@@ -4,7 +4,7 @@ import { getInfoUserByName, getRepoByUsername } from '@data/api/github';
 import { showLoading, stopLoad } from '@loading/actions';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView, View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator, Searchbar } from 'react-native-paper';
 import { connect } from 'react-redux';
@@ -23,12 +23,12 @@ function Home(props) {
 
   const [infoUser, setInfoUser] = useState();
   const [repositories, setRepositories] = useState([]);
-  const [filter, setFilter] = useState({ username: '', page: 1, perPage: 30 });
+  const [filter, setFilter] = useState({ username: '', page: 1, perPage: 10 });
 
   const onSearch = async () => {
     if (filter.username && filter.username.length) {
       showLoading();
-      setFilter({ ...filter, page: 1, size: 10 });
+      setFilter({ ...filter, page: 1 });
       getInfoUser(filter.username);
       const response = await getRepoByUsername(filter);
       if (response.data.length < filter.perPage) {
@@ -50,17 +50,21 @@ function Home(props) {
   const getInfoUser = async (config) => {
     const response = await getInfoUserByName(config);
     const { data } = response;
-    setInfoUser({
-      ...infoUser,
-      username: data.login,
-      fullname: data.name,
-      publicRepos: data.public_repos,
-      avatarUrl: data.avatar_url,
-      bio: data.bio,
-      followers: data.followers,
-      following: data.following,
-      location: data.location,
-    });
+    if (response.status === HTTP_STATUS.OK) {
+      setInfoUser({
+        ...infoUser,
+        username: data.login,
+        fullname: data.name,
+        publicRepos: data.public_repos,
+        avatarUrl: data.avatar_url,
+        bio: data.bio,
+        followers: data.followers,
+        following: data.following,
+        location: data.location,
+      });
+    } else {
+      setInfoUser([]);
+    }
   };
 
   const renderFooterComponent = () => {
@@ -119,6 +123,14 @@ function Home(props) {
     <Repository {...item} onPress={() => navigationToStargazer(item)} />
   );
 
+  const renderTotalOfReposExist = () => {
+    return (
+      <View style={styles.totalRepo}>
+        <Text style={styles.totalRepoText}>{repositories.length} repositories</Text>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -137,7 +149,7 @@ function Home(props) {
           data={repositories}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          // ListHeaderComponent={infoUser?.username && <UserInfo {...infoUser} />}
+          ListHeaderComponent={repositories.length && renderTotalOfReposExist}
           ListFooterComponent={renderFooterComponent}
           ItemSeparatorComponent={() => <Separator style={{ marginLeft: 0 }} />}
           contentContainerStyle={{ backgroundColor: 'white', marginTop: 16 }}

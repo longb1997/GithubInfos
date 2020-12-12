@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 // import Separator from '../Separator';
 // import { Avatar } from 'react-native-paper';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function UserInfo({
   fullname,
@@ -17,7 +18,7 @@ export default function UserInfo({
   return (
     <View style={styles.container}>
       <View style={styles.block}>
-        <Image style={styles.avatar} size={24} source={{ uri: avatarUrl }} />
+        <Image style={styles.avatar} size={22} source={{ uri: avatarUrl }} />
         <View style={styles.blockName}>
           <Text style={styles.mainName}>{fullname}</Text>
           <Text style={styles.secondName}>{username}</Text>
@@ -29,12 +30,21 @@ export default function UserInfo({
         </View>
       )}
       <View style={styles.blockFollow}>
-        <Text>{location}</Text>
-        <Text>{publicRepos} public repositories</Text>
-        <Text>
-          <Text style={{ fontWeight: 'bold' }}>{followers}</Text> followers -
-          <Text style={{ fontWeight: 'bold' }}> {following}</Text> following
-        </Text>
+        <View style={styles.row}>
+          <Icon name="ios-location-outline" size={18} style={styles.icon} />
+          <Text>{location}</Text>
+        </View>
+        <View style={styles.row}>
+          <Icon name="ios-documents-outline" size={18} style={styles.icon} />
+          <Text>{publicRepos} public repositories</Text>
+        </View>
+        <View style={styles.row}>
+          <Icon name="md-man-outline" size={18} style={styles.icon} />
+          <Text>
+            <Text style={{ fontWeight: 'bold' }}>{followers}</Text> followers -
+            <Text style={{ fontWeight: 'bold' }}> {following}</Text> following
+          </Text>
+        </View>
       </View>
     </View>
   );

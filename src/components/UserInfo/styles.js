@@ -42,5 +42,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 12,
   },
+  row: { flexDirection: 'row', alignItems: 'center' },
+  icon: {
+    paddingRight: 4,
+  },
 });
 export default styles;
