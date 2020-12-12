@@ -1,5 +1,5 @@
 import HomeScreen from '@feature/home';
-import Stargazer from '@feature/stargazer';
+import Stargazers from '@feature/stargazers';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
@@ -17,9 +17,9 @@ function MainStack() {
       />
       <Stack.Screen
         name="stargazer"
-        component={Stargazer}
+        component={Stargazers}
         options={{
-          title: 'Stargazer',
+          title: 'Stargazers',
         }}
       />
     </Stack.Navigator>

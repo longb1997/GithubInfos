@@ -14,6 +14,4 @@ export default {
   gray02: '#787C81',
   border: '#D2D8DF',
   placeholder: '#B4BCC6',
-  red: 'red',
-  check_in: '#30AEF6',
 };

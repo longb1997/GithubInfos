@@ -4,17 +4,20 @@ import { Colors } from '@config';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
-    paddingHorizontal: 0,
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
+    paddingHorizontal: 12,
   },
   title: {
-    fontSize: 32,
+    fontWeight: '400',
+    fontSize: 16,
+  },
+  description: {
+    color: Colors.gray,
+  },
+  stargazer: {
+    color: Colors.content,
   },
 });
 

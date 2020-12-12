@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { showLoading, stopLoad } from '@loading/actions';
 import React, { useCallback, useState } from 'react';
-import { View, FlatList, Text, Pressable } from 'react-native';
-import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
+import { SafeAreaView, FlatList, Text, Pressable, View } from 'react-native';
+import { ActivityIndicator, TextInput, Searchbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,10 @@ import { getInfoUserByName, getRepoByUsername } from '@data/api/github';
 import { HTTP_STATUS } from '@constants/HttpStatus';
 import UserInfo from 'src/components/UserInfo';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import LoadMoreButton from 'src/components/LoadMoreButton';
+import Separator from 'src/components/Separator';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // import { searchRepoByUsername } from '@feature/home/modules/actions';
 function Home(props) {
@@ -39,6 +42,7 @@ function Home(props) {
         stopLoad();
       } else {
         stopLoad();
+        setRepositories([]);
       }
       stopLoad();
     } else {
@@ -73,9 +77,12 @@ function Home(props) {
       );
     } else if (!isEnd && repositories.length) {
       return (
-        <Button mode="contained" onPress={handleLoadMore}>
-          Load more
-        </Button>
+        <LoadMoreButton
+          containerStyle={{ alignSelf: 'center' }}
+          text="Loadmore"
+          type="outlined"
+          onPress={handleLoadMore}
+        />
       );
     } else return null;
   };
@@ -107,42 +114,60 @@ function Home(props) {
     return true;
   });
 
-  const Item = ({ name, stargazers_count }) => (
+  const Item = ({ name, stargazers_count, description }) => (
     <Pressable
       onPress={() => {
-        navigate('stargazer');
+        navigate('stargazer', { username: filter.username, repoName: name });
       }}
       style={styles.item}>
-      <Text style={styles.title}>
-        {name} - {stargazers_count}
-      </Text>
+      <View style={{ paddingBottom: 8 }}>
+        <Text style={styles.title}>{name}</Text>
+        {description && <Text style={styles.description}>{description}</Text>}
+      </View>
+      <Text style={styles.stargazer}>{stargazers_count}</Text>
     </Pressable>
   );
 
   const renderItem = ({ item }) => <Item {...item} />;
 
+  // const renderInfoUser = () => {};
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={{ paddingHorizontal: 16 }}
-        mode="outlined"
-        label="Github user"
-        value={filter.username}
-        onChangeText={(username) => {
-          console.log(username);
-          setFilter({ ...filter, username });
-        }}
-        onEndEditing={onSearch}
-      />
-      {infoUser?.username && <UserInfo {...infoUser} />}
-      {/* <Icon name="rocket" size={30} color="#900" /> */}
-      <FlatList
-        data={repositories}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        ListFooterComponent={renderFooterComponent}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        {/* <TextInput
+          style={{ paddingHorizontal: 16 }}
+          mode="outlined"
+          label="Github user"
+          value={filter.username}
+          onChangeText={(username) => {
+            console.log(username);
+            setFilter({ ...filter, username });
+          }}
+          onEndEditing={onSearch}
+        /> */}
+        {/* <Searchbar
+          placeholder="Search"
+          onChangeText={(username) => {
+            console.log(username);
+            setFilter({ ...filter, username });
+          }}
+          value={filter.username}
+          onEndEditing={onSearch}
+        /> */}
+        {/* <Icon name="rocket" size={30} color="#900" /> */}
+        {infoUser?.username && <UserInfo {...infoUser} />}
+        <FlatList
+          data={repositories}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          // ListHeaderComponent={infoUser?.username && <UserInfo {...infoUser} />}
+          ListFooterComponent={renderFooterComponent}
+          ItemSeparatorComponent={() => <Separator style={{ marginLeft: 0 }} />}
+          contentContainerStyle={{ backgroundColor: 'white', marginTop: 16 }}
+          showsVerticalScrollIndicator={false}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

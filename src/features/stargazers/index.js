@@ -1,26 +1,29 @@
-import { getStargazerByRepoOfUser } from '@data/api/github';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import { showLoading, stopLoad } from '@loading/actions';
-
-import styles from './styles';
-import { ActivityIndicator, Button, Colors } from 'react-native-paper';
 import { HTTP_STATUS } from '@constants/HttpStatus';
+import { getStargazerByRepoOfUser } from '@data/api/github';
+import { showLoading, stopLoad } from '@loading/actions';
+import React, { useCallback, useEffect, useState } from 'react';
+import { SafeAreaView, View, Text } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { ActivityIndicator, Colors } from 'react-native-paper';
+import { connect } from 'react-redux';
+import LoadMoreButton from 'src/components/LoadMoreButton';
+import Separator from 'src/components/Separator';
+import Stargazer from 'src/components/Stargazer';
+import styles from './styles';
 
-function Stargazer(props) {
+function Stargazers(props) {
+  const { showLoading, stopLoad, route } = props;
+  const { username, repoName } = route.params;
+
   const [stargazer, setStargazer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
   const [filter, setFilter] = useState({
-    username: 'hngocl',
-    repoName: 'BoilerplateReactNative',
+    username: username,
+    repoName: repoName,
     perPage: 30,
     page: 1,
   });
-
-  const { showLoading, stopLoad } = props;
 
   const getStargazer = async (config) => {
     showLoading();
@@ -48,18 +51,23 @@ function Stargazer(props) {
       );
     } else if (!isEnd) {
       return (
-        <Button mode="contained" onPress={handleLoadMore}>
-          Load more
-        </Button>
+        <LoadMoreButton
+          containerStyle={{ alignSelf: 'center' }}
+          text="Loadmore"
+          type="outlined"
+          onPress={handleLoadMore}
+        />
       );
     } else return null;
   };
 
-  const Item = ({ login }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{login}</Text>
-    </View>
-  );
+  const renderEmptyComponent = () => {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+        <Text style={{ textAlign: 'center' }}>Oops... Nothing here man!</Text>
+      </View>
+    );
+  };
 
   const handleLoadMore = useCallback(async () => {
     if (loading) return;
@@ -88,26 +96,27 @@ function Stargazer(props) {
     return true;
   });
 
-  const renderItem = ({ item }) => <Item {...item} />;
+  const renderItem = ({ item }) => <Stargazer {...item} />;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={stargazer}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         ListFooterComponent={renderFooterComponent}
+        ItemSeparatorComponent={() => <Separator />}
+        ListEmptyComponent={renderEmptyComponent}
+        contentContainerStyle={[{ flexGrow: 1 }]}
+        showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 }
-const mapState = () => {
-  return {};
-};
 
 const mapDispatch = {
   stopLoad,
   showLoading,
 };
 
-export default connect(mapState, mapDispatch)(Stargazer);
+export default connect(null, mapDispatch)(Stargazers);

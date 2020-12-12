@@ -8,13 +8,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
+    // backgroundColor: '#f9c2ff',
     marginVertical: 8,
     marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

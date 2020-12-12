@@ -3,11 +3,13 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    backgroundColor: 'white',
+    borderRadius: 4,
   },
   block: {
     flexDirection: 'row',
+    marginTop: 12,
+    marginLeft: 12,
   },
   avatar: {
     width: 60,
@@ -30,13 +32,15 @@ const styles = StyleSheet.create({
   blockBio: {
     backgroundColor: Colors.gray01,
     marginVertical: 12,
+    marginHorizontal: 12,
+    borderRadius: 4,
   },
   bio: {
     padding: 8,
   },
   blockFollow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 12,
+    marginLeft: 12,
   },
 });
 export default styles;

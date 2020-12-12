@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+// import Separator from '../Separator';
 // import { Avatar } from 'react-native-paper';
 import styles from './styles';
 
@@ -27,12 +28,12 @@ export default function UserInfo({
           <Text style={styles.bio}>{bio}</Text>
         </View>
       )}
-      <Text>{location}</Text>
-      <Text>{publicRepos} public repositories</Text>
       <View style={styles.blockFollow}>
+        <Text>{location}</Text>
+        <Text>{publicRepos} public repositories</Text>
         <Text>
           <Text style={{ fontWeight: 'bold' }}>{followers}</Text> followers -
-          <Text style={{ fontWeight: 'bold' }}>{following}</Text> following
+          <Text style={{ fontWeight: 'bold' }}> {following}</Text> following
         </Text>
       </View>
     </View>
