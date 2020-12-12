@@ -3,8 +3,8 @@
  */
 import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';
-import App from './App';
+import Root from './src/Root';
 import { name as appName } from './app.json';
 // this.disableYellowBox = true;
-AppRegistry.registerComponent(appName, () => App);
-// export {default} from './storybook';
+AppRegistry.registerComponent(appName, () => Root);
+// export { default } from './storybook';

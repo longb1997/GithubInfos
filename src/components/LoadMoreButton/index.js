@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 const width = Dimensions.get('window').width;
 
 const LoadMoreButton = ({
-  text,
+  text = 'button',
   onPress,
   type = 'filled',
   bordered = false,

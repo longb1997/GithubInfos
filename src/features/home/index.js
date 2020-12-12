@@ -1,22 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { showLoading, stopLoad } from '@loading/actions';
-import React, { useCallback, useState } from 'react';
-import { SafeAreaView, FlatList, Text, Pressable, View } from 'react-native';
-import { ActivityIndicator, TextInput, Searchbar } from 'react-native-paper';
-import { connect } from 'react-redux';
-import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-
-import { getInfoUserByName, getRepoByUsername } from '@data/api/github';
 import { HTTP_STATUS } from '@constants/HttpStatus';
-import UserInfo from 'src/components/UserInfo';
-
-// import Icon from 'react-native-vector-icons/FontAwesome';
-import LoadMoreButton from 'src/components/LoadMoreButton';
-import Separator from 'src/components/Separator';
+import { getInfoUserByName, getRepoByUsername } from '@data/api/github';
+import { showLoading, stopLoad } from '@loading/actions';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
+import { FlatList, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator, Searchbar } from 'react-native-paper';
+import { connect } from 'react-redux';
+import LoadMoreButton from 'src/components/LoadMoreButton';
+import Repository from 'src/components/Repository';
+import Separator from 'src/components/Separator';
+import UserInfo from 'src/components/UserInfo';
+import styles from './styles';
 
-// import { searchRepoByUsername } from '@feature/home/modules/actions';
 function Home(props) {
   const { showLoading, stopLoad } = props;
   const { navigate } = useNavigation();
@@ -114,38 +111,18 @@ function Home(props) {
     return true;
   });
 
-  const Item = ({ name, stargazers_count, description }) => (
-    <Pressable
-      onPress={() => {
-        navigate('stargazer', { username: filter.username, repoName: name });
-      }}
-      style={styles.item}>
-      <View style={{ paddingBottom: 8 }}>
-        <Text style={styles.title}>{name}</Text>
-        {description && <Text style={styles.description}>{description}</Text>}
-      </View>
-      <Text style={styles.stargazer}>{stargazers_count}</Text>
-    </Pressable>
+  const navigationToStargazer = ({ name }) => {
+    navigate('stargazer', { username: filter.username, repoName: name });
+  };
+
+  const renderItem = ({ item }) => (
+    <Repository {...item} onPress={() => navigationToStargazer(item)} />
   );
 
-  const renderItem = ({ item }) => <Item {...item} />;
-
-  // const renderInfoUser = () => {};
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {/* <TextInput
-          style={{ paddingHorizontal: 16 }}
-          mode="outlined"
-          label="Github user"
-          value={filter.username}
-          onChangeText={(username) => {
-            console.log(username);
-            setFilter({ ...filter, username });
-          }}
-          onEndEditing={onSearch}
-        /> */}
-        {/* <Searchbar
+        <Searchbar
           placeholder="Search"
           onChangeText={(username) => {
             console.log(username);
@@ -153,10 +130,10 @@ function Home(props) {
           }}
           value={filter.username}
           onEndEditing={onSearch}
-        /> */}
-        {/* <Icon name="rocket" size={30} color="#900" /> */}
+        />
         {infoUser?.username && <UserInfo {...infoUser} />}
         <FlatList
+          scrollEnabled={false}
           data={repositories}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
